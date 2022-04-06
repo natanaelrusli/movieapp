@@ -8,19 +8,22 @@
                     <img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" alt="Movie Poster">
                 </div>
                 <div class="movie-content">
-                    <h1>Title: {{ movie.title }}</h1>
-                    <p class="movie-fact tagline">
-                        <span>TagLine:</span>{{ movie.tagLine }}
+                    <h1>{{ movie.title }}</h1>
+                    <p class="movie-status" :class="{ released : isReleased }">{{ movie.status }}</p>
+                    <p v-if="movie.tagline" class="movie-fact tagline">
+                        <span>TagLine:</span> {{ movie.tagline }}
                     </p>
                     <p class="movie-fact">
                         <span>Released</span>
                         Released:
                         {{
+                            movie.release_date ?
                             new Date(movie.release_date).toLocaleString('en-us', {
                             month: 'long',
                             day: 'numeric',
                             year: 'numeric'
                             })
+                            : '-'
                         }}
                     </p>
                     <p class="movie-fact">
@@ -36,6 +39,7 @@
                         }}
                     </p>
                     <p class="movie-fact"><span>Overview:</span> {{ movie.overview }}</p>
+                    <a v-if="movie.imdb_id" class="button" target="_blank" :href="`https://www.imdb.com/title/${movie.imdb_id}`">Go to IMDB</a>
                 </div>
             </div>
         </div>
@@ -60,7 +64,11 @@ export default {
             title: this.movie.title
         }
     },
-    fetchDelay: 1000,
+    computed: {
+      isReleased() {
+        return this.movie.status === 'Released'
+      }
+    },
     methods: {
         async getSingleMovie() {
             const data = axios.get(
@@ -83,7 +91,9 @@ export default {
   padding: 32px 16px;
   .button {
     align-self: flex-start;
+    height: 40px;
     margin-bottom: 32px;
+    margin-top: 32px;
   }
   .movie-info {
     display: flex;
@@ -109,6 +119,15 @@ export default {
       h1 {
         font-size: 56px;
         font-weight: 400;
+      }
+      .movie-status {
+        background-color: red;
+        width: fit-content;
+        padding: 7px;
+        border-radius: 7px;
+      }
+      .released {
+        background-color: green;    
       }
       .movie-fact {
         margin-top: 12px;

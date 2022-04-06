@@ -1,23 +1,58 @@
 <template>
   <div class="hero">
-      <img src="../assets/imgs/movieHero.jpg" alt="movieHero">
+      <img :src="trendingMovie.backdrop" alt="Movie Poster">
       <div class="text-container">
           <div class="text">
               <span class="mini-heading">
-                  Now Streaming
+                  Now Trending
               </span>
-              <h1><span>Now</span> Streaming</h1>
-              <a href="#movie-grid" class="button">
-                  View Movies
-              </a>
+              <h1>{{ trendingMovie.title || '-' }}</h1>
+              <NuxtLink 
+              class="button"
+              :to="{name: 'movies-movieid', params: {movieid: trendingMovie.id}}"
+            >
+              More Details
+            </NuxtLink>
           </div>
       </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'Hero',
+    data() {
+      return {
+        trendingMovies: [],
+        trendingMovie: {}
+      }
+    },
+    async fetch() {
+      await this.getTrendingPoster()
+    },
+    methods: {
+      async getTrendingPoster() {
+        const data = axios.get(
+          `https://api.themoviedb.org/3/trending/all/week?api_key=0a79a4a744c4ed130fed8f220abf8b73&media_type=all&page=1`
+        )
+        const result = await data
+        this.trendingMovies = result.data.results
+        this.getTrendingMovie()
+      },
+      getTrendingMovie() {
+        const randomIndex = Math.floor(Math.random() * 19)
+        const data = this.trendingMovies[randomIndex]
+        if (this.trendingMovies.length !== 0) {
+          this.trendingMovie = {
+            backdrop: `https://image.tmdb.org/t/p/original/${data.backdrop_path}`,
+            title: data.original_title,
+            id: data.id
+          }
+        }
+      }
+    }
 }
 </script>
 
