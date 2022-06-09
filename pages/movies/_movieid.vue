@@ -19,9 +19,9 @@
                         {{
                             movie.release_date ?
                             new Date(movie.release_date).toLocaleString('en-us', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric'
+                              month: 'long',
+                              day: 'numeric',
+                              year: 'numeric'
                             })
                             : '-'
                         }}
@@ -33,13 +33,18 @@
                         <span>Revenue:</span>
                         {{
                             movie.revenue.toLocaleString('en-us', {
-                            style: 'currency',
-                            currency: 'USD',
+                              style: 'currency',
+                              currency: 'USD',
                             })
                         }}
                     </p>
                     <p class="movie-fact"><span>Overview:</span> {{ movie.overview }}</p>
-                    <a v-if="movie.imdb_id" class="button" target="_blank" :href="`https://www.imdb.com/title/${movie.imdb_id}`">Go to IMDB</a>
+                    <a-tooltip placement="topLeft">
+                      <template slot="title">
+                        <span>{{ `Go to ${movie.title} IMDB page` }}</span>
+                      </template>
+                      <a v-if="movie.imdb_id" class="button" target="_blank" :href="`https://www.imdb.com/title/${movie.imdb_id}`">Go to IMDB</a>
+                    </a-tooltip>
                 </div>
             </div>
         </div>
@@ -119,6 +124,7 @@ export default {
       h1 {
         font-size: 56px;
         font-weight: 400;
+        color: #fff;
       }
       .movie-status {
         background-color: red;

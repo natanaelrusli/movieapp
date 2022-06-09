@@ -6,7 +6,7 @@
 
     <!-- Search -->
     <div class="container search">
-      <input v-model.lazy="searchInput" type="text" placeholder="Search" @keyup.enter="$fetch" >
+      <input v-model.lazy="searchInput" type="text" style="width: 200px" placeholder="Search" @keyup.enter="$fetch" />
       <button v-show="searchInput !== ''" class="button" @click="clearSearch">Clear Search</button>
     </div>
 
@@ -102,6 +102,7 @@ export default {
     return {
       title: 'Nuxtflix - Latest Movie Info',
       meta: [
+        //  If the want to set the description from within a child component we need to use the same hid value
         {
           hid: 'description',
           name: 'description',
