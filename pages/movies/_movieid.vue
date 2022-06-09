@@ -61,7 +61,7 @@ export default {
     },
     head() {
         return {
-            title: this.movie.title
+            title: `${this.movie.title} - Nuxtflix`
         }
     },
     computed: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 <template>
   <div class="home">
-    <!-- Hero -->
+    <!-- Hero Banner -->
     <Hero />
 
     <!-- Search -->
@@ -100,7 +100,7 @@ export default {
   },
   head() {
     return {
-      title: 'Movie App - Latest Streaming Movie Info',
+      title: 'Nuxtflix - Latest Movie Info',
       meta: [
         {
           hid: 'description',
@@ -153,15 +153,19 @@ export default {
   }
   .search {
     display: flex;
-    padding: 32px 16px;
+    padding: 32px 6px;
     input {
       max-width: 350px;
       width: 100%;
-      padding: 12px 6px;
+      padding: 12px 20px;
       font-size: 14px;
+      border-radius: 5px;
       border: none;
+      color: #949494;
+      border: 2px solid #fff;
       &:focus {
         outline: none;
+        border: 2px solid #c92502;
       }
     }
     .button {

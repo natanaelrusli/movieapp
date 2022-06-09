@@ -28,8 +28,8 @@
   text-decoration: none;
   color: inherit;
   padding: 8px 16px;
-  background-color: #c92502;
-  border: none;
+  background-color: rgba($color: #000, $alpha: 0.5);
+  border: 1px solid #c92502;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
